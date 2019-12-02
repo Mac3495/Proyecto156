@@ -45,16 +45,25 @@ def bisec():
         C1.set('%.5f' % (c))
 
     lam_x = lambdify(x, expr, modules=['numpy'])
-    x_vals = np.linspace(-10, 10, 50)
+    x_vals = np.linspace(a-3, b+3, 50)
     y_vals = lam_x(x_vals)
+    plt.axhline(color='black')
 
-    plt.plot(x_vals, y_vals)
+    plt.title('Gráfica')
+    plt.xlabel('eje x')
+    plt.ylabel('eje y')
+    plt.text(c, 10, expr, fontsize=18, color='red')
+
+    plt.plot(x_vals, y_vals, color='red')
     plt.grid(True)
-    plt.axvline(x=c, color='red', label='raiz')
-    plt.axvline(x=ca, color='black', label='a')
-    plt.axvline(x=cb, color='black', label='b')
+    plt.axvline(x=c, color='green', label='raiz')
+    plt.axvline(x=ca, color='yellow', label='a')
+    plt.axvline(x=cb, color='yellow', label='b')
 
+
+def graficar():
     plt.show()
+
 
 def simp():
     x = symbols('x')
@@ -105,58 +114,72 @@ def simp():
     l = str(a)
     ll = str(b)
     plt.text(0.5 * (a + b), 25, "{}{}{}{}{}{}".format(h, l, i, ll, k, j), horizontalalignment='center', fontsize=18)
-    plt.show()
+    #plt.show()
 
+def volver(root, win):
+    root.deiconify()
+    win.destroy()
 
 def bisection():
-
-    winB = tk.Toplevel()
-    winB.geometry('800x600')
-    winB.configure(bg = "white")
+    winB = tk.Toplevel(root)
+    winB.geometry('300x650')
+    winB.configure(bg = "#2196F3")
     winB.title("Metodo de Bisección")
-    Label(winB, text="Introduzca a").pack()
+    Label(winB, text="Introduzca a", bg="#2196F3", fg="white", font=("",18)).pack()
     Entry(winB, justify=CENTER, textvariable = ia).pack()
-    Label(winB, text="\nIntroduzca b").pack()
+    Label(winB, text="\nIntroduzca b", bg="#2196F3", fg="white", font=("",18)).pack()
     Entry(winB, justify=CENTER, textvariable = ib).pack()
-    Label(winB, text="\nIntroduzca la tolerancia").pack()
+    Label(winB, text="\nIntroduzca la tolerancia", bg="#2196F3", fg="white", font=("",18)).pack()
     Entry(winB, justify=CENTER, textvariable= t).pack()
-    Label(winB, text="\nIntroduzca f(x)").pack()
+    Label(winB, text="\nIntroduzca f(x)", bg="#2196F3", fg="white", font=("",18)).pack()
     Entry(winB, justify=CENTER, textvariable= expre).pack()
-    Label(winB, text="").pack()
-    Button(winB, text="Bisección y graficar", command=bisec).pack()
+    Label(winB, text="", bg="#2196F3", fg="white", font=("",22)).pack()
+    Button(winB, text="Bisección", command=bisec).pack()
+    Label(winB, text="", bg="#2196F3", fg="white", font=("", 16)).pack()
+    Button(winB, text="graficar", command=graficar).pack()
 
-    Label(winB, text="\nSolución").pack()
-    Label(winB, text="Resultado N").pack()
+    Label(winB, text="\nSolución", bg="#2196F3", fg="white", font=("",18)).pack()
+    Label(winB, text="\nResultado N", bg="#2196F3", fg="white", font=("",18)).pack()
     Entry(winB, justify="center", textvariable=N1, state="disabled").pack()
-    Label(winB, text="La raíz es").pack()
+    Label(winB, text="\nLa raíz es", bg="#2196F3", fg="white", font=("",18)).pack()
     Entry(winB, justify="center", textvariable=C1, state="disabled").pack()
 
+    Label(winB, text="", bg="#2196F3", fg="white", font=("", 22)).pack()
+    Button(winB, text="Volver", command= lambda : volver(root, winB)).pack()
+
     print("Bisection")
-    #root.withdraw()
+    root.withdraw()
 
 
 def simpson():
-    winS = tk.Toplevel()
-    winS.geometry('800x600')
-    winS.configure(bg="white")
+    winS = tk.Toplevel(root)
+    winS.geometry('300x650')
+    winS.configure(bg="#F44336")
     winS.title("Metodo de Simpson")
-    Label(winS, text="Introduzca a").pack()
+    Label(winS, text="Introduzca a", bg="#F44336", fg="white", font=("",18)).pack()
     Entry(winS, justify=CENTER, textvariable=sa).pack()
-    Label(winS, text="\nIntroduzca b").pack()
+    Label(winS, text="\nIntroduzca b", bg="#F44336", fg="white", font=("",18)).pack()
     Entry(winS, justify=CENTER, textvariable=sb).pack()
-    Label(winS, text="\nIntroduzca n (Número par)").pack()
+    Label(winS, text="\nIntroduzca n (Número par)", bg="#F44336", fg="white", font=("",18)).pack()
     Entry(winS, justify=CENTER, textvariable=sn).pack()
-    Label(winS, text="\nIntroduzca f(x)").pack()
+    Label(winS, text="\nIntroduzca f(x)", bg="#F44336", fg="white", font=("",18)).pack()
     Entry(winS, justify=CENTER, textvariable=sexpre).pack()
-    Label(winS, text="").pack()
-    Button(winS, text="Bisección y graficar", command=simp).pack()
+    Label(winS, text="", bg="#F44336", fg="white", font=("",22)).pack()
+    Button(winS, text="Simpson", command=simp).pack()
+    Label(winS, text="", bg="#F44336", fg="white", font=("", 16)).pack()
+    Button(winS, text="Graficar", command=graficar).pack()
 
-    Label(winS, text="\nSolución").pack()
-    Label(winS, text="El resultado es").pack()
+    Label(winS, text="\nSolución", bg="#F44336", fg="white", font=("",18)).pack()
+    Label(winS, text="\nEl resultado es", bg="#F44336", fg="white", font=("",18)).pack()
     Entry(winS, justify="center", textvariable=R, state="disabled").pack()
 
+    Label(winS, text="", bg="#F44336", fg="white", font=("", 22)).pack()
+    Button(winS, text="Volver", command=lambda: volver(root, winS)).pack()
 
-root = Tk()
+    root.withdraw()
+
+
+root = tk.Tk()
 
 ia = StringVar()
 ib = StringVar()
@@ -172,18 +195,33 @@ sexpre = StringVar()
 R = StringVar()
 
 
-root.geometry('800x600')
+root.geometry('300x650')
 
-root.configure(bg = 'white')
+root.configure(bg = '#009688')
 
 root.title('Proyecto de 156')
 
-Label(root, text="INF - 156").pack()
+Label(root, text="", bg="#009688", fg="white", font=("",32)).pack()
+
+Label(root, text="INF - 156" , bg="#009688", fg="white", font=("",32)).pack()
+
+Label(root, text="", bg="#009688", fg="white", font=("",32)).pack()
+
+Label(root, text="Integrantes:", bg="#009688", fg="white", font=("",22)).pack()
+Label(root, text="- Torrez Azuga Marcelo", bg="#009688", fg="white", font=("",22)).pack()
+Label(root, text="- Lemus Miranda Josué", bg="#009688", fg="white", font=("",22)).pack()
+Label(root, text="- Gemio Quispe José Miguel", bg="#009688", fg="white", font=("",22)).pack()
+
+Label(root, text="", bg="#009688", fg="white", font=("",16)).pack()
 
 Button(root, text='Bisección', command=bisection).pack()
 
+Label(root, text="", bg="#009688", fg="white", font=("",16)).pack()
+
 Button(root, text='Simpson', command=simpson).pack()
 
-Button(root, text='Salir', command=quit).pack(side=BOTTOM)
+Label(root, text="", bg="#009688", fg="white", font=("",16)).pack()
+
+Button(root, text='Salir', command=quit).pack()
 
 root.mainloop()
